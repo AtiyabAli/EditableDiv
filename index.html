@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable Div</title>
+    <style>
+        #elm{
+            
+            height: 22px;
+            text-align: center;
+            border: 2px solid;
+            width: 100%;
+        }
+        #textarea{
+           
+           padding: 3px;
+          padding: 2px;
+            text-align: center;
+            width: 98%;       
+        }
+        
+    </style>
+</head>
+<body>
+    <p>You can edit the below line by clicking on it:</p>
+    <p id="demo"></p>
+   
+
+    <script>
+        let divElm = document.createElement("div");
+        let textnode;
+        let val = localStorage.getItem("textnode");
+        if (val == null){
+
+            
+            textnode = document.createTextNode("Edit me on clicking");
+        }
+        else{
+            textnode = document.createTextNode(val);
+        }
+        divElm.appendChild(textnode);
+        let myDiv = document.getElementById("demo");
+        myDiv.appendChild(divElm);
+        divElm.setAttribute("id", "elm");
+        divElm.setAttribute("class", "elm");
+
+        divElm.addEventListener("click", function () {
+            let textAreaLength = document.getElementsByClassName("textarea").length;
+            if(textAreaLength == 0){
+
+                let html = elm.innerHTML;
+                divElm.innerHTML = `<textarea name="textarea" id="textarea" class="textarea" rows="1">${html}</textarea>`     
+            }
+            let textarea = document.getElementById("textarea");
+            textarea.addEventListener("blur", function () {
+                elm.innerHTML = textarea.value;
+                localStorage.setItem("textnode", textarea.value)
+            })
+        })
+
+    </script>
+</body>
+</html>
